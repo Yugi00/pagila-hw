@@ -4,7 +4,9 @@
  */
 CREATE OR REPLACE FUNCTION category_counts_by_language(TEXT) RETURNS TABLE(name TEXT, count BIGINT) AS
 $$
--- FIXME: implementation goes here
+begin
+
+
 $$
 LANGUAGE SQL
 IMMUTABLE
