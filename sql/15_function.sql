@@ -4,9 +4,14 @@
  */
 CREATE OR REPLACE FUNCTION category_counts_by_language(TEXT) RETURNS TABLE(name TEXT, count BIGINT) AS
 $$
-begin
-
-
+select c.name, count(c.name) as count
+from category as c
+join film_category as fc using(category_id)
+join film as f using(film_id)
+join language as l using(language_id)
+where l.name=$1
+group by c.name
+order by name; 
 $$
 LANGUAGE SQL
 IMMUTABLE

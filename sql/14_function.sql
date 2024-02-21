@@ -3,17 +3,14 @@
  * Use table category, film_category, and film.
  */
 
-CREATE OR REPLACE FUNCTION list_category(category_name TEXT) RETURNS TABLE(title TEXT) AS
+CREATE OR REPLACE FUNCTION list_category(TEXT) RETURNS TABLE(title TEXT) AS
 $$
-begin
-    select f.title
-    from film as f
-    join film_category as fc on f.film_id = fc.film_id
-    join category as c on fc.category_id = c.category_id
-    where c.name=category_name
-    group by f.title
-    order by title;
-end;
+select f.title
+from film as f
+join film_category as fc using(film_id)
+join category as c using(category_id)
+where c.name like ($1)
+order by title;
 $$
 LANGUAGE SQL
 IMMUTABLE
